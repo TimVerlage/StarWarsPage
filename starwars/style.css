@@ -1,0 +1,81 @@
+/* styles.css */
+/* styles.css */
+body {
+    background-image: url('https://wallpapercave.com/wp/wp3074328.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 300px;
+    font-family: Arial, sans-serif;
+    background-color: #360b6d; /* This will be behind the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    margin-top: 20px;
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    background-color: #d40d0d; /* You can keep this or remove it if you want only the background image */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(20, 171, 198, 0.1);
+   
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+#search-input {
+    padding: 12px;
+    width: calc(100% - 24px);
+    margin-bottom: 12px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#search-button, #random-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#search-button:hover, #random-button:hover {
+    background-color: #0056b3;
+}
+
+.results {
+    background-color: #051919;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-height: 400px; /* Example of fixed height, adjust as needed */
+    overflow-y: auto; /* Add vertical scrolling */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.result-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #d11f08;
+    border-radius: 5px;
+}
+
+.result-item p {
+    margin: 8px 0;
+}
