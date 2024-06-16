@@ -6,7 +6,7 @@ body {
     background-repeat: no-repeat;
     min-width: 300px;
     font-family: Arial, sans-serif;
-    background-color: #360b6d; /* This will be behind the image */
+    background-color: #360b6d;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@ body {
     text-align: center;
     width: 80%;
     max-width: 800px;
-    background-color: #d40d0d; /* You can keep this or remove it if you want only the background image */
+    background-color: #d40d0d; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(20, 171, 198, 0.1);
@@ -63,8 +63,8 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    max-height: 400px; /* Example of fixed height, adjust as needed */
-    overflow-y: auto; /* Add vertical scrolling */
+    max-height: 400px; 
+    overflow-y: auto;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
