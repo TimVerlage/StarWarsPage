@@ -1,4 +1,4 @@
-// Skapa två cache-objekt för att lagra hämtade data om människor och planeter
+// Skapa två cache-objekt för att lagra hämtad data.
 const peopleCache = new Map();
 const planetCache = new Map();
 
@@ -7,17 +7,17 @@ window.onload = function() {
     loadFromLocalStorage();
 };
 
-// Lägg till händelsehanterare för knappar och sökfältet
+// Lägg till händelsehanterare för knappar och sökfältet.
 document.getElementById('search-button').addEventListener('click', search);
 document.getElementById('random-button').addEventListener('click', fetchRandomCharacter);
 document.getElementById('search-input').addEventListener('keydown', function(event) {
-    // Om användaren trycker på Enter, kör sökfunktionen
+    // Om användaren trycker på Enter, kör sökfunktionen.
     if (event.key === 'Enter') {
         search();
     }
 });
 
-// Huvudfunktionen för att hantera sökningar
+// Huvudfunktionen för att hantera sökningar.
 async function search() {
     const query = document.getElementById('search-input').value.trim();
     if (query === '') return; // Om sökfältet är tomt, gör ingenting
@@ -27,7 +27,7 @@ async function search() {
     saveToLocalStorage(); // Spara cache-data till localStorage
 }
 
-// Funktion för att söka efter människor
+// Funktion för att söka efter människor.
 async function searchPeople(query) {
     if (peopleCache.has(query)) {
         // Om sökningen redan finns i cachen, använd cachen
@@ -36,7 +36,7 @@ async function searchPeople(query) {
     }
 
     try {
-        // Hämta data från API:et
+        // Hämta data från API.
         const response = await fetch(`https://swapi.dev/api/people/?search=${query}`);
         const data = await response.json();
         peopleCache.set(query, data.results); // Spara resultatet i cachen
@@ -46,26 +46,26 @@ async function searchPeople(query) {
     }
 }
 
-// Funktion för att söka efter planeter
+// Funktion för att söka efter planeter.
 async function searchPlanets(query) {
     if (planetCache.has(query)) {
-        // Om sökningen redan finns i cachen, använd cachen
+        // Om sökningen redan finns i cachen, använd cachen.
         await displayResults(planetCache.get(query), 'planets');
         return;
     }
 
     try {
-        // Hämta data från API:et
+        // Hämta data från API.
         const response = await fetch(`https://swapi.dev/api/planets/?search=${query}`);
         const data = await response.json();
-        planetCache.set(query, data.results); // Spara resultatet i cachen
+        planetCache.set(query, data.results); // Spara resultatet i cachen.
         await displayResults(data.results, 'planets');
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-// Funktion för att visa resultaten på sidan
+// Funktion för att visa result på sidan.
 async function displayResults(results, type) {
     const resultsDiv = document.getElementById('results');
     
@@ -74,7 +74,7 @@ async function displayResults(results, type) {
         resultItem.classList.add('result-item');
 
         if (type === 'people') {
-            // Om det är en person, hämta hemvärlden och visa information
+            // Om det är en person, hämta hemvärlden och visa info.
             const homeworld = await fetchHomeworld(result.homeworld);
             resultItem.innerHTML = `
                 <p><strong>Name:</strong> ${result.name}</p>
@@ -88,7 +88,7 @@ async function displayResults(results, type) {
                 <p><strong>Homeworld:</strong> ${homeworld}</p>
             `;
         } else if (type === 'planets') {
-            // Om det är en planet, visa planetinformation
+            // Om det är en planet, visa planetinfo.
             resultItem.innerHTML = `
                 <p><strong>Name:</strong> ${result.name}</p>
                 <p><strong>Rotation Period:</strong> ${result.rotation_period}</p>
@@ -105,18 +105,18 @@ async function displayResults(results, type) {
     });
 }
 
-// Funktion för att hämta hemvärlden för en person
+// Funktion för att hämta hemvärlden för en person.
 async function fetchHomeworld(url) {
     if (planetCache.has(url)) {
         return planetCache.get(url).name;
     }
 
     try {
-        // Hämta data från API:et
+        // Hämta data från API.
         const response = await fetch(url);
         const data = await response.json();
-        planetCache.set(url, data); // Spara resultatet i cachen
-        saveToLocalStorage(); // Spara cache-data till localStorage
+        planetCache.set(url, data); // Spara resultatet i cache.
+        saveToLocalStorage(); // Spara cache-data till localStorage.
         return data.name;
     } catch (error) {
         console.error('Error fetching homeworld:', error);
@@ -124,27 +124,27 @@ async function fetchHomeworld(url) {
     }
 }
 
-// Funktion för att hämta en slumpmässig karaktär
+// Funktion för att slumpa en karaktär.
 async function fetchRandomCharacter() {
     try {
-        // Hämta totalt antal karaktärer
+        // Hämta totalt antal karaktärer.
         const countResponse = await fetch('https://swapi.dev/api/people/');
         const countData = await countResponse.json();
         const totalCharacters = countData.count;
 
-        // Generera ett slumpmässigt ID
+        // Generera ett slumpmässigt ID.
         const randomId = Math.floor(Math.random() * totalCharacters) + 1;
 
-        // Hämta data för slumpmässig karaktär
+        // Hämta data för slumpmässig karaktär.
         const response = await fetch(`https://swapi.dev/api/people/${randomId}/`);
         const character = await response.json();
 
-        // Hämta hemvärlden för karaktären
+        // Hämta hemvärlden för karaktären.
         const homeworld = await fetchHomeworld(character.homeworld);
 
-        // Visa den slumpmässiga karaktären på sidan
+        // Visa den slumpmässiga karaktären på sidan.
         const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = ''; // Rensa tidigare resultat
+        resultsDiv.innerHTML = ''; // Rensa tidigare resultat.
         const resultItem = document.createElement('div');
         resultItem.classList.add('result-item');
 
@@ -166,13 +166,13 @@ async function fetchRandomCharacter() {
     }
 }
 
-// Funktion för att spara cache-data till localStorage
+// Funktion för att spara cache-data till localStorage.
 function saveToLocalStorage() {
     localStorage.setItem('peopleCache', JSON.stringify(Array.from(peopleCache.entries())));
     localStorage.setItem('planetCache', JSON.stringify(Array.from(planetCache.entries())));
 }
 
-// Funktion för att ladda cache-data från localStorage
+// Funktion för att ladda cache-data från localStorage.
 function loadFromLocalStorage() {
     const savedPeopleCache = localStorage.getItem('peopleCache');
     const savedPlanetCache = localStorage.getItem('planetCache');
